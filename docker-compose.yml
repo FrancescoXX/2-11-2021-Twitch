@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  jsapp: 
+    container_name: jsapp
+    image: jsapp
+    build:
+      context: js
+    environment:
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - PGDATABASE=postgres
+      - PGHOST=db
+      - EXTERNALPORT=3000
+    ports:
+      - 3000:3000
+    depends_on: 
+      - db
+
+  pythonapp:
+    container_name: pythonapp
+    image: pythonapp
+    build:
+      context: python
+    environment:
+      - PG_USER=postgres
+      - PG_PASSWORD=postgres
+      - PG_HOST=db
+      - PG_DATABASE=postgres
+      - PG_PORT=5432
+    ports:
+      - 80:80
+    depends_on: 
+      - db
+
+  db:
+    container_name: db
+    image: postgres:12
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - pgdata:/var/lib/postgresql//data
+
+volumes:
+  pgdata: {}
