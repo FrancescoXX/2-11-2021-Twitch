@@ -1,3 +1,5 @@
+I do livestreams on Twitch: https://www.twitch.tv/francesco_ciulla
+
 - git init and .gitignore (**/node_modules)✅
 - docker-compose.yml file✅
 - postgres service✅
